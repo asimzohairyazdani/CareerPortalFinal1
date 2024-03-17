@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import AuthService from "../services/AuthService";
-import { Footer } from "./Footer";
-import { Header } from "./Header";
+import { useNavigate } from 'react-router-dom';
+import { Header } from './Header';
+import { Footer } from './Footer';
 
-export const RegisterForm = () => {
+const RegisterForm = () => {
+  const navigate=useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    confirmPassword: '',
     role: ''
   });
+  const [confirmPassword,setConfirmPassword]=useState("")
   const [errors, setErrors] = useState({});
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [collapseOpen, setCollapseOpen] = useState(false);
@@ -50,10 +52,10 @@ export const RegisterForm = () => {
       isValid = false;
     }
 
-    if (!formData.confirmPassword.trim()) {
+    if (!confirmPassword.trim()) {
       newErrors.confirmPassword = 'Please confirm password';
       isValid = false;
-    } else if (formData.password !== formData.confirmPassword) {
+    } else if (formData.password !== confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
       isValid = false;
     }
@@ -69,16 +71,14 @@ export const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      try {
-        await AuthService.postRegister(formData);
-        alert('Registration successful!');
-      } catch (error) {
-        if (error.response && error.response.data) {
-          setErrors(error.response.data);
-        } else {
-          console.error('Registration failed:', error.message);
-        }
+    try {
+      await AuthService.postRegister(formData);
+      navigate("/Profile");
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setErrors(error.response.data);
+      } else {
+        console.error('Registration failed:', error.message);
       }
     }
   };
@@ -125,7 +125,7 @@ export const RegisterForm = () => {
               </div>
               <div className="mb-4">
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+                <input type="password" id="password" name="password" value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
                 {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
               </div>
               <div className="mb-4">
@@ -138,7 +138,7 @@ export const RegisterForm = () => {
                 <label htmlFor="role" className="block text-sm font-medium text-gray-700">Role</label>
                 <select id="role" name="role" value={formData.role} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                   <option value="">Select Role</option>
-                  <option value="EMPLOYEE">Employee</option>
+                  <option value="EMPLOYER">Employee</option>
                   <option value="JOB_SEEKER">job_seeker</option>
                 </select>
                 {errors.role && <p className="text-red-500 text-xs mt-1">{errors.role}</p>}
