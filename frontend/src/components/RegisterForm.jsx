@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import AuthService from "../services/AuthService";
-import { useNavigate } from 'react-router-dom';
+import { Footer } from "./Footer";
+import { Header } from "./Header";
 
-const RegisterForm = () => {
-  const navigate=useNavigate();
+export const RegisterForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -69,14 +69,16 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await AuthService.postRegister(formData);
-      navigate("/login");
-    } catch (error) {
-      if (error.response && error.response.data) {
-        setErrors(error.response.data);
-      } else {
-        console.error('Registration failed:', error.message);
+    if (validateForm()) {
+      try {
+        await AuthService.postRegister(formData);
+        alert('Registration successful!');
+      } catch (error) {
+        if (error.response && error.response.data) {
+          setErrors(error.response.data);
+        } else {
+          console.error('Registration failed:', error.message);
+        }
       }
     }
   };
