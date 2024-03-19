@@ -8,3 +8,4 @@ const AuthProvider = ({children}) => {
   )
 }
 export default AuthProvider;
+//used to store global variables

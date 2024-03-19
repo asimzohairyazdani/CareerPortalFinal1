@@ -67,7 +67,7 @@ const LoginForm = () => {
     setPassword("");
     setSuccess(true);
   };
-
+  
   return (
     <div className="max-w-md mx-auto mt-8 p-6 bg-gradient-to-r from-rose-100 to-teal-100 rounded shadow-md">
       <h2 className="text-2xl mb-4 font-semibold">Login</h2>
