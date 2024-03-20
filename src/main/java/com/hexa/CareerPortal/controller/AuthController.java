@@ -24,8 +24,7 @@ public class AuthController {
 	public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDto dto)
 	{
 		JWTAuthResponse token = authService.login(dto);
-		/*JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
-		jwtAuthResponse.setAccessToken(token);*/
+		
 		return ResponseEntity.ok(token);
 	}
  
@@ -35,4 +34,5 @@ public class AuthController {
 		String value = authService.register(dto);
 		return new ResponseEntity<>(value, HttpStatus.CREATED);
 	}
+	 
 }
