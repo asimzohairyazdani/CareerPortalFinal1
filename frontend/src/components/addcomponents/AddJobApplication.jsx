@@ -85,9 +85,10 @@ export const AddJobApplications = () => {
 
   return (
     <div>
+      <div className="w-[80%] h-[88%]"></div>
       {console.log("Application Rendered.. ")}
       <div className="container">
-        <div className="card col-md-6 offset-md-3">
+        <div className="card col-md-6 offset-md-3 pl-10">
           {changeTitle()}
           <div className="card-body">
             <form>

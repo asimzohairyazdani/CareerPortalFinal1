@@ -5,6 +5,7 @@ import { Header } from './Header';
 import { Footer } from './Footer';
 
 const RegisterForm = () => {
+  document.title = "CareerCrafter | Registration";
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -34,11 +35,11 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className='h-full w-full'>
+    <div className='h-screen w-full'>
       <Header/>
-      <div className='h-full w-full overflow-hidden bg-gradient-to-r from-slate-900 via-red-900 to-slate-900'>
+      <div className='h-full w-full overflow-hidden bg-gradient-to-r from-slate-900 via-purple-950 to-slate-900'>
     <div className="h-[65%] w-[30%] mx-auto mt-8 p-6 bg-gradient-to-r from-rose-100 to-teal-100 rounded shadow-md">
-      <h2 className="text-2xl mb-4 font-semibold">Register</h2>
+      <h2 className="text-2xl mb-4 font-semibold">Sign up</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="name" className="block text-base font-medium text-gray-700">Name</label>
@@ -56,7 +57,7 @@ const RegisterForm = () => {
           {errors.password && <p className="text-red-500 text-base mt-1">{errors.password}</p>}
         </div>
         <div className="mb-4">
-          <label htmlFor="role" className="block text-sm font-medium text-gray-700">Role</label>
+          <label htmlFor="role" className="block text-base font-medium text-gray-700">Role</label>
           <select id="role" name="role" value={formData.role} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
             <option value="">Select Role</option>
             <option value="EMPLOYER">Employer</option>

@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import JobListingService from "../../services/JobListingService";
+import { AuthContext } from "../context/AuthProvider";
+import EmployerService from "../../services/EmployerService";
+
 
 export const AddJobListing = () => {
+  document.title = "CareerCrafter | Post Job";
   const [requirements, setRequirements] = useState("");
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const navigate = useNavigate();
+  const{auth}=useContext(AuthContext)
   const { id } = useParams();
   const changeTitle = () => {
     if (id) {
@@ -31,7 +36,7 @@ export const AddJobListing = () => {
   useEffect(() => {
     console.log("useEffect triggered.... ");
     console.log("id value obtained from url using useParams()", id);
-    if (id) {
+    if (auth?.role==="ADMIN"&&id) {
       JobListingService.getJobListingById(id)
         .then((response) => {
           console.log(
@@ -54,7 +59,19 @@ export const AddJobListing = () => {
     //let emailId=email;
     const jobListing = { requirements, description, title, image};
     console.log("Event feed from home:", jobListing);
-    if (id) {
+    if (id && auth?.userId) {
+      EmployerService.addJob(id, jobListing,auth)
+        .then((response) => {
+          console.log(
+            "response recieved from saved API..." + JSON.stringify(response)
+          );
+          navigate(`/PersonProfile/${id}`);
+        })
+        .catch((error) => {
+          console.log("error recieved from saved API...", error);
+        });
+    }   
+    else if(id) {
       JobListingService.updateJobListingById(id, jobListing)
         .then((response) => {
           console.log(
@@ -65,7 +82,9 @@ export const AddJobListing = () => {
         .catch((error) => {
           console.log("error recieved from saved API...", error);
         });
-    } else {
+    }
+    else
+    {
       JobListingService.addJobListing(jobListing)
         .then((response) => {
           console.log(

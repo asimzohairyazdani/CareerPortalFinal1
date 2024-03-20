@@ -6,6 +6,7 @@ import { Footer } from "./Footer";
 import { SideNav } from "./templates/SideNav";
 import { useNavigate, Link } from "react-router-dom";
 export function  CareerBlogs() {
+  document.title = "CareerCrafter | Career Blogs";
   const navigate = useNavigate();
 
   const settings = {
@@ -21,7 +22,7 @@ export function  CareerBlogs() {
   return (
     <div className="w-full h-full flex flex-col overflow-x-hidden">
       <Header />
-      <div className="bg-gradient-to-r from-slate-900 via-red-900 w-[73%] h-full flex gap-4">
+      <div className="bg-gradient-to-r from-slate-900 via-purple-950  w-[73%] h-full flex gap-4">
         <SideNav />  
         
     <div className='w-3/4 m-auto pl-40'>

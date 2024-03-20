@@ -12,6 +12,7 @@ import { Header } from "./Header";
 
 
 export function JobFairs() {
+  document.title = "CareerCrafter | Job flair";
   /*  
   const [open, setOpen] = useState('1');
   const toggle = (id) => {
@@ -26,7 +27,7 @@ export function JobFairs() {
 
     <div className="w-[100%] h-full flex flex-col overflow-x-hidden">
     <Header />
-    <div className="bg-gradient-to-r from-slate-900 via-red-900 to-slate-900 w-full h-full flex gap-5 ">
+    <div className="bg-gradient-to-r from-slate-900 via-purple-950 to-slate-900 w-full h-full flex gap-5 ">
       <SideNav />
       <div className="w-[80%] h-[88%]">
       <div className="container">

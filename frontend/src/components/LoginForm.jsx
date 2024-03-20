@@ -4,18 +4,17 @@ import { AuthContext } from "./context/AuthProvider";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import AuthService from "../services/AuthService";
 const LoginForm = () => {
+  // document.title = "CareerCrafter | Login";
   const userRef = useRef();
   const errorRef = useRef();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const location = useLocation();
-  const from = location?.state?.from?.pathname || "/";
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const { setAuth } = useContext(AuthContext);
+  const{setAuth}=useContext(AuthContext)
   useEffect(() => {
     userRef?.current?.focus();
   }, []);
@@ -37,21 +36,31 @@ const LoginForm = () => {
         const accessToken = response.data.accessToken;
         const userId = response.data.userDto.userId;
         const role = response.data.userDto.role;
+        const dto = response.data.userDto;
         console.log("response from login API : " + accessToken);
         console.log("user id", response.data.userDto.userId);
-        setAuth({ userId, email, password, accessToken });
+        setAuth({userId, email, password, accessToken, role, dto} );
+       // console.log(auth)
         setEmail("");
         setPassword("");
         setSuccess(true);
-        if (role === "EMPLOYER"){ navigate("/addEmployer");
-        }
-        else if(role === "JOB_SEEKER")
-          {
-           navigate("/addJobSeeker");
-        }
-        else if (role === "ADMIN") {
+        console.log("dto employer", dto.employer);
+        if (role === "EMPLOYER" && dto.employer !== null) {
+          console.log("no navigate 1") 
+          navigate(`/PersonProfile/${dto.employer.employerId}`);
+      } else if (role === "JOB_SEEKER" && dto.jobseeker !== null) {
+        console.log("no navigate 2")
+          navigate("/addJobSeeker");
+      } else if (role === "ADMIN") {
+        console.log("no navigate 3")
           navigate("/user");
-        }
+      } else if (role === "EMPLOYER") {
+          console.log("no navigate 4")
+          navigate("/addEmployer");
+      } else if (role === "JOB_SEEKER") {
+        console.log("no navigate 5")
+          navigate("/addJobSeeker");
+      }
       })
       .catch((error) => {
         console.log(error);
@@ -69,13 +78,13 @@ const LoginForm = () => {
   };
   
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-gradient-to-r from-rose-100 to-teal-100 rounded shadow-md">
+    <div className="w-[30%] max-w-md mx-auto mt-8 p-6 bg-gradient-to-r from-rose-100 to-teal-100 rounded shadow-md">
       <h2 className="text-2xl mb-4 font-semibold">Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-base font-medium text-gray-700"
           >
             Email
           </label>
@@ -93,7 +102,7 @@ const LoginForm = () => {
         <div className="mb-4">
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-base font-medium text-gray-700"
           >
             Password
           </label>
@@ -110,7 +119,7 @@ const LoginForm = () => {
         </div>
         <button
           type="submit"
-          className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700"
+          className="w-full py-2 px-4 bg-black text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700"
         >
           Login
         </button>

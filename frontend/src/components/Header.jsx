@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
 export const Header = () => {
   const navigate = useNavigate()
   const onClickHome = () =>{
@@ -28,8 +27,8 @@ export const Header = () => {
           <div onClick={onClickAbout} className="text-base  text-zinc-100 hover:bg-zinc-100 hover:text-black duration-200 rounded-md px-2">About</div>
           </div>
           <div className='flex gap-5 py-2 px-4'>
-          <div onClick={onClickLogin} className="text-base  text-zinc-100 hover:bg-zinc-100 hover:text-black duration-200 rounded-md px-2">Log In</div>
-          <div onClick={onClickSingin} className="text-base  text-zinc-100 hover:bg-zinc-100 hover:text-black duration-200 rounded-md px-2">Sign Up </div>
+          <div onClick={onClickLogin} className="text-base  text-zinc-100 hover:bg-black hover:text-zinc-100 duration-200 rounded-md px-2">Log In</div>
+          <div onClick={onClickSingin} className="text-base  text-zinc-100 hover:bg-black hover:text-zinc-100 duration-200 rounded-md px-2">Sign Up </div>
           </div>
         </div>
       </header>

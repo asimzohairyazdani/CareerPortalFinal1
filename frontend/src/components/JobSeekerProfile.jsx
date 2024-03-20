@@ -6,6 +6,7 @@ import { SideNav } from "./templates/SideNav";
 import { Footer } from "./Footer";
 
 export const JobSeekerProfile = () => {
+  document.title = "CareerCrafter | Job profile";
   const [fullName, setFullName] = useState("");
   const [professionalDetails, setProfessionalDetails] = useState("");
   const [educationDetail, setEducationDetail] = useState("");
@@ -39,7 +40,7 @@ export const JobSeekerProfile = () => {
   return (
     <div className="w-[100%] h-full flex flex-col overflow-x-hidden">
       <Header />
-      <div className="bg-gradient-to-r from-slate-900 via-red-900 to-slate-900 w-full h-full flex ">
+      <div className="bg-gradient-to-r from-slate-900 via-purple-950 to-slate-900 w-full h-full flex ">
         <SideNav className="w-[16%]" />
         <div className="w-[84%] h-[98%]">
           <div
